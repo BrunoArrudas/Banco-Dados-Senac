@@ -11,12 +11,22 @@ Exercício:
 Com base no contexto apresentado, identifique as entidades e seus relacionamentos. Em seguida, elabore um modelo conceitual que represente as relações entre essas entidades.
 
 Entidades:
-(listar aqui)
+(Cursos, Alunos, Professores, Matriculas e Disciplinas)
 
 Relacionamentos
-(listar aqui)
+(
+
+- Um Aluno se matricula em um ou mais Cursos
+- Um Curso pode conter varios Alunos
+- Um Curso e composto por varias Disciplinas
+- Uma Disciplina pode pertencer a diferentes Cursos
+- Um Professor leciona uma ou mais Disciplinas
+- Uma Disciplina pode ser lecionada por um ou mais Professores
+)
 
 Agora, com base nessas entidades e relacionamentos, desenvolva um modelo conceitual no DrawIO representando visualmente a estrutura e as interações entre esses elementos.
+
+
 
 ## Parte 2 - Modelo Lógico
 
