@@ -63,4 +63,23 @@ INSERT INTO professor_disciplina (Professor_ID, Disciplina_ID) values
 
 SELECT * FROM professor_disciplina;
 
+-- DDL Update
 
+UPDATE professor
+SET Especializacao = 'Inteligencia Artificial'
+WHERE Id = 11;
+
+UPDATE disciplina
+SET Nome = 'Matematica Avançada', Horas = 80
+WHERE Id =100;
+
+UPDATE disciplina
+SET Horas = 40
+WHERE Horas > 40;
+
+SELECT * FROM disciplina;
+
+-- DML DELETE
+
+DELETE FROM disciplina
+WHERE Id = 300;
