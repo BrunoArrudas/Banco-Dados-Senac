@@ -55,7 +55,7 @@ SELECT COUNT(*) AS QuantidadeDeDisciplinas
  
  -- Me informe quantas matriculas foram feitas no curso de Id 2
  
-SELECT * FROM professor;
+SELECT * FROM curso;
 
 SELECT COUNT(*) AS QuantidadeMatriculas
 FROM matricula
@@ -66,5 +66,19 @@ WHERE Curso_ID = 2; -- Descrever sempre o campo do ID.
 SELECT * 
 FROM professor
 WHERE Especializacao LIKE '%gia%';    -- ='Tecnologia';
+
+-- Exercicio: Selecione todos os cursos que terminem com "medicina" ou começam com a letra "D"
+SELECT * 
+FROM curso
+WHERE Nome LIKE '%medicina' OR Nome LIKE 'D%'; -- Lado esquerdo % terminam. Lado direito % começam.
+
+-- Utilizando o DISTINCT para obter valores distintos
+SELECT * FROM professor;
+
+SELECT DISTINCT especializacao FROM professor;
+
+
+
+
 
 
