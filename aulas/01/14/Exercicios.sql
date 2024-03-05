@@ -15,7 +15,7 @@ SELECT * FROM matricula;
 
 SELECT *
 FROM matricula
-WHERE DataMatricula > 2024-02-10;
+WHERE DataMatricula > '2024-02-10';
 
 -- ---------------------------------------------------------------
 -- Contar quantas disciplinas existem com carga horária maior que X
