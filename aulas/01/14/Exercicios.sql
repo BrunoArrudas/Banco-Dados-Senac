@@ -71,7 +71,7 @@ JOIN matricula ON matricula.Aluno_ID = aluno.matricula;
 -- Combinar nome do curso e nome do aluno
 
 SELECT * FROM aluno;
-SELECT * FROM curso;
+SELECT * FROM matricula;
 
 SELECT curso.Nome, aluno.Nome AS NomedoAluno
 FROM curso
