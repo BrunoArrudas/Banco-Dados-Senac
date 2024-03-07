@@ -91,3 +91,5 @@ INSERT INTO ItensPedido (PedidoID, ProdutoID, Quantidade) VALUES
     (8, 1, 1),
     (9, 4, 5),
     (10, 2, 3);
+    
+    
