@@ -8,11 +8,11 @@ CREATE TABLE IF NOT EXISTS Hospedagem(
  codHospedagem INT AUTO_INCREMENT,
  codChale INT,
  estado VARCHAR(50) NOT NULL,
- dataInicio DATETIME NOT NULL,
- dataFim DATETIME NOT NULL,
- qtdPessoas VARCHAR(50) NOT NULL,
- desconto INT NOT NULL ,
- valorFinal INT,
+ dataInicio DATETIME NOT NULL, -- DATE
+ dataFim DATETIME NOT NULL, -- DATE - Permite nulo
+ qtdPessoas VARCHAR(50) NOT NULL, -- INT DEFAULT 1
+ desconto INT NOT NULL , -- DECIMAL(10,2) DEFAULT 0.0
+ valorFinal INT, -- DECIMAL(10,2)
  PRIMARY KEY (codHospedagem),
  FOREIGN KEY (codChale) REFERENCES Chale(codChale)
 );
@@ -23,8 +23,8 @@ ADD FOREIGN KEY (codCliente) REFERENCES Cliente(codCliente);
 CREATE TABLE IF NOT EXISTS Hospedagem_Servico (
 codHospedagem INT,
 codServico INT,
-dataServico INT,
-PRIMARY KEY (dataServico),
+dataServico INT, -- DATE NOT NULL
+PRIMARY KEY (dataServico),             -- PRIMARY KEY (codHospedagem, codServico)
 FOREIGN KEY (codHospedagem) REFERENCES Hospedagem(codHospedagem),
 FOREIGN KEY (codServico) REFERENCES Servico(codServico),
 valorServico VARCHAR(6) NOT NULL
@@ -46,21 +46,21 @@ PRIMARY KEY (codCliente)
 CREATE TABLE IF NOT EXISTS Chale (
 codChale INT AUTO_INCREMENT,
 localizacao VARCHAR(50) NOT NULL,
-capacidade VARCHAR(4) NOT NULL,
-valorAltaEstacao VARCHAR(6) NULL,
-valorBaixaEstacao VARCHAR(6) NULL,
+capacidade VARCHAR(4) NOT NULL, -- INT Valor
+valorAltaEstacao VARCHAR(6) NULL, -- DECIMAL(10,2) NOT NULL
+valorBaixaEstacao VARCHAR(6) NULL, -- DECIMAL(10,2) NOT NULL
 PRIMARY KEY (codChale)
 );
 
 CREATE TABLE IF NOT EXISTS Chale_Item(
 codChale INT,
-nomeItem INT,
+nomeItem INT, -- VARCHAR (100)    -- PRIMARY KEY (codChale, nomeItem)
 FOREIGN KEY (codChale) REFERENCES Chale(codChale),
 FOREIGN KEY (nomeItem) REFERENCES Item(nomeItem)
 );
 
 CREATE TABLE IF NOT EXISTS Item(
-nomeItem INT,
+nomeItem INT, -- VARCHAR(100)
 descricaoItem VARCHAR (100) NOT NULL,
 PRIMARY KEY (nomeItem)
 );
@@ -73,8 +73,8 @@ FOREIGN KEY (codCliente) REFERENCES Cliente(codCliente)
 );
 
 CREATE TABLE IF NOT EXISTS Servico(
-codServico INT,
+codServico INT, -- AUTO_INCREMENT
 nomeServico VARCHAR(50) NOT NULL,
-valorServico VARCHAR(6) NOT NULL,
+valorServico VARCHAR(6) NOT NULL, -- DECIMAL(10,2)
 PRIMARY KEY (codServico)
 );
