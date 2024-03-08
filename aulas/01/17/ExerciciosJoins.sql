@@ -61,4 +61,8 @@ FROM chale
 JOIN Hospedagem ON chale.codChale = Hospedagem.codChale
 WHERE '2024-07-18' BETWEEN hospedagem.dataInicio AND hospedagem.dataFim;
 
+-- Cross Join
+SELECT chale.*, servico.*
+FROM chale
+CROSS JOIN servico; 
 
