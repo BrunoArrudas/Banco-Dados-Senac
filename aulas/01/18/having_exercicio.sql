@@ -17,3 +17,27 @@ SELECT *
 FROM servico
 GROUP BY valorServico
 HAVING valorServico >= 40.00;
+
+-- Criar uma view
+CREATE VIEW ViewMediaCapacidade AS
+SELECT codChale, AVG(capacidade) AS media_capacidade
+FROM chale
+GROUP BY codChale;
+
+-- Selecionar dados de uma View
+SELECT * FROM ViewMediaCapacidade;
+
+--  Crie uma view que informe aos dados da hospedagem, com os dados do cliente, incluindo o telefone
+CREATE VIEW ViewHospedagemDadosCliente AS
+SELECT hospedagem.*, cliente.nomeCliente, telefone.telefone
+FROM hospedagem
+LEFT JOIN cliente ON hospedagem.codCliente = cliente.codCliente
+INNER JOIN telefone ON cliente.codCliente = telefone.codCliente;
+
+-- Consulte a view 
+SELECT * FROM ViewHospedagemDadosCliente;
+
+-- Criar um indice na coluna codCliente da tabela telefone
+CREATE INDEX idx_codCliente ON telefone(codCliente);
+
+
