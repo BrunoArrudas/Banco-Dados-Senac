@@ -66,3 +66,8 @@ SELECT chale.*, servico.*
 FROM chale
 CROSS JOIN servico; 
 
+SELECT cliente.*, telefone.*
+FROM cliente
+CROSS JOIN telefone ON cliente.codCliente = telefone.codCliente; 
+
+
