@@ -1,5 +1,3 @@
-USE compras;
-
 -- 0 Iniciando a transação
 START TRANSACTION;
 
@@ -18,5 +16,23 @@ UPDATE produto SET quantidade = quantidade - 6 WHERE ID = 4;
 -- Desfazendo a transação
 ROLLBACK; -- COMMIT
 
+-- -------------------------------------------------------------------------------------
 
+-- Adicione na tabela gestaoacademica.aluno a coluna "matriculado"
+-- Crie uma transaction que , ao matricular um aluno em um curso mude a coluna matriculado para 'true';
 
+START TRANSACTION;
+SET @alunoID = 7;
+
+-- Matricular um aluno
+INSERT INTO gestaoacademica.matricula VALUES
+(@alunoID, 1 , current_date());
+
+-- Altero o gestaoacademica.aluno.matriculado para TRUE
+UPDATE gestaoacademica.aluno
+SET matriculado = true
+WHERE matricula = @alunoID;
+
+COMMIT;
+
+SELECT * FROM aluno;
