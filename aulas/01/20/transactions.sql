@@ -36,3 +36,22 @@ WHERE matricula = @alunoID;
 COMMIT;
 
 SELECT * FROM aluno;
+-- ---------------------------------------------------------------------------------
+
+-- Criar uma transaction que , quando o cliente fizer uma hospedagem Automaticamente adicione um cafe da manha para sua hospedagem
+START TRANSACTION;
+
+	SET @cafeManhaID = 1;
+    SET @dataEntrada = '2024-01-01';
+    
+INSERT INTO hospedagem (codChale, codCliente, dataInicio, dataFim, qtdPessoas, desconto, valorFinal) VALUES
+(3, 5, @dataEntrada, '2024-03-01', 3, 0, 370.00);
+SET @HospedagemID = last_insert_id();
+
+-- Automaticamente adicione um cafe da manha para a sua hospedagem
+INSERT INTO hospedagem_servico VALUES
+(@HospedagemID, @cafeManhaID, @dataEntrada);
+
+COMMIT;
+
+ 
