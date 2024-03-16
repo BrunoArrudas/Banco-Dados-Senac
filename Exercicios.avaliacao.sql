@@ -3,7 +3,6 @@ USE sistema_vendas;
 ################## DDL
 -- 1. Crie uma tabela chamada Fornecedor para armazenar informações sobre os fornecedores do sistema.
 -- id, nome, endereço, telefone, email e uma observação (text)
-
 CREATE TABLE IF NOT EXISTS Fornecedor(
 ID INT PRIMARY KEY AUTO_INCREMENT,
 Nome VARCHAR(50) NOT NULL,
@@ -101,7 +100,6 @@ WHERE CategoriaID = 1;
 INSERT INTO cliente (Nome, Email, Telefone, UsuarioAtualizacao) VALUES
 ('Marleuza', 'marleuza@example.com', '999222333', 5);
 
-
 -- 5. Inserir um novo pedido:
 INSERT INTO Pedido (ClienteID, DataPedido, FormaPagamentoId, STATUS, UsuarioAtualizacao) VALUES
 (1, '2024-03-23 10:30:00', 4, 'Pendente', 2);
@@ -158,23 +156,31 @@ LIMIT 10;
 -- 10. Selecione os produtos da tabela Produto, pulando os primeiros 5 registros e mostrando os 10 seguintes:
 SELECT * 
 FROM PRODUTO
-LIMIT 
+LIMIT 20 OFFSET 4;
 
 ############# DQL - Joins
 -- 1. Selecione o nome do produto e sua categoria:
-
+SELECT produto.nome, categoria.Nome AS categoria
+FROM produto
+JOIN categoria ON produto.CategoriaID = categoria.Id;
 
 -- 2. Selecione o nome do cliente e o nome do produto que ele comprou:
-
+SELECT cliente.nome, produto.Nome AS NomeProduto
+FROM cliente
+JOIN produto ON cliente.Id = produto.Id;
 
 -- 3. Selecione todos os produtos, mesmo aqueles que não têm uma categoria associada:
 
 
 -- 4. Selecione todos os clientes, mesmo aqueles que não fizeram nenhum pedido:
-
+SELECT cliente.Nome, pedido.Id
+FROM cliente
+LEFT JOIN pedido ON cliente.Id = pedido.ClienteID;
 
 -- 5. Selecione todas as categorias, mesmo aquelas que não têm produtos associados:
-
+SELECT categoria.*, produto.CategoriaID
+FROM categoria -- Questionar
+RIGHT JOIN produto ON categoria.Id = produto.Id;
 
 -- 6. Selecione todos os produtos, mesmo aqueles que não foram pedidos:
 
@@ -185,29 +191,54 @@ LIMIT
 
 
 -- 2. Selecione o nome do cliente e o total de pedidos feitos por cada cliente:
-
+SELECT cliente.nome, pedido.Id AS TotalPedidos
+FROM cliente
+JOIN pedido ON cliente.Id = pedido.ClienteID;
 
 -- 3. Selecione o nome do produto, o nome da categoria e a quantidade total de vendas para cada produto:
-
-
+SELECT produto.nome, categoria.nome AS NomeCategoria , pedido.Id AS qtdVendas
+FROM produto
+JOIN categoria ON produto.id = categoria.Id
+JOIN pedido ON categoria.Id = pedido.Id;
+ 
 -- 4. Selecione o nome da categoria, o número total de produtos nessa categoria e o número de pedidos para cada categoria:
-
+SELECT categoria.Nome, produto.Id AS ProdutosCategoria, pedido.Id AS Numeropedidos
+FROM categoria
+JOIN produto ON categoria.Id = Produto.Id
+JOIN pedido ON Produto.Id = pedido.Id;
 
 -- 5. Selecione o nome do cliente, o número total de pedidos feitos por esse cliente e a média de produtos por pedido, apenas para clientes que tenham feito mais de 3 pedidos:
 
 
 ##### Crie uma View qualquer para qualquer um dos joins desenvolvidos
+CREATE VIEW VIEWATIVIDADE AS
+SELECT produto.nome, categoria.Nome AS categoria
+FROM produto
+JOIN categoria ON produto.CategoriaID = categoria.Id;
 
+ 
 ##### Crie uma transaction que cadastra um cliente e faça uma venda
 -- Início da transação
 
--- Inserir um novo cliente
+START TRANSACTION;
 
+-- Inserir um novo cliente
+INSERT INTO cliente (Nome, Email, Telefone, UsuarioAtualizacao) VALUES
+('Jonathan', 'Jonathan@example.com', '329456789', 1);
 
 -- Inserir um novo pedido para o cliente
+INSERT INTO pedido (ClienteID, DataPedido, FormaPagamentoId, STATUS, UsuarioAtualizacao) VALUES
+(28, '2024-03-31 10:30:00', 1, 'Pendente', 1);
+SET @Pedido = last_insert_id();
 
+INSERT INTO pedido (ClienteID, DataPedido, FormaPagamentoId, STATUS, UsuarioAtualizacao) VALUES
+(28, '2024-03-31 10:30:00', 2, 'Processando', 1);
+SET @InsercaoPedido = last_insert_id();
 
 -- Inserir itens no pedido
-
+INSERT INTO ItemPedido (PedidoId, ProdutoId, Quantidade) VALUES
+(@Pedido, 8, 45),
+(@Pedido, 9, 15);
 
 -- Commit da transação (confirmação das alterações)
+COMMIT;
