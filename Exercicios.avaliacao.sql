@@ -1,8 +1,7 @@
 USE sistema_vendas;
 
 ################## DDL
--- 1. Crie uma tabela chamada Fornecedor para armazenar informações sobre os fornecedores do sistema.
--- id, nome, endereço, telefone, email e uma observação (text)
+-- 1. Crie uma tabela chamada Fornecedor para armazenar informações sobre os fornecedores do sistema. -- id, nome, endereço, telefone, email e uma observação (text)
 CREATE TABLE IF NOT EXISTS Fornecedor(
 ID INT PRIMARY KEY AUTO_INCREMENT,
 Nome VARCHAR(50) NOT NULL,
@@ -17,8 +16,8 @@ ALTER TABLE Fornecedor
 ADD COLUMN CNPJ VARCHAR(11);
 
 -- 3. Adicione uma chave estrangeira à tabela Fornecedor para relacioná-la à tabela Categoria, representando a categoria do fornecedor.
-
--- ERRO
+ALTER TABLE Fornecedor
+ADD FOREIGN KEY(Id) REFERENCES categoria(Id);
 
 -- 4. Modifique o tipo da coluna Telefone na tabela Fornecedor para armazenar números de telefone com no máximo 15 caracteres.
 ALTER TABLE Fornecedor
@@ -131,7 +130,6 @@ ORDER BY Preco DESC;
 -- 5. Selecione os nomes distintos das categorias da tabela Categoria:
 INSERT INTO Categoria (Nome, Descricao, UsuarioAtualizacao) VALUES
 ('Roupas', 'Categoria relacionada a produtos de vestuário.', 5);
-
 SELECT DISTINCT categoria.Nome
 FROM categoria;
 
@@ -146,7 +144,7 @@ FROM Produto;
 
 -- 8. Selecione os produtos da tabela Produto, adicionando uma coluna calculada "Preço Total" multiplicando a quantidade pelo preço:
 
--- Erro
+-- Não desenvolvi a solução.
 
 -- 9. Selecione os produtos da tabela Produto, mostrando apenas os 10 primeiros registros:
 SELECT * 
@@ -170,7 +168,9 @@ FROM cliente
 JOIN produto ON cliente.Id = produto.Id;
 
 -- 3. Selecione todos os produtos, mesmo aqueles que não têm uma categoria associada:
-
+SELECT produto.nome, categoria.nome
+FROM produto -- Erro
+JOIN categoria ON produto.Id = categoria.Id;
 
 -- 4. Selecione todos os clientes, mesmo aqueles que não fizeram nenhum pedido:
 SELECT cliente.Nome, pedido.Id
@@ -184,11 +184,12 @@ RIGHT JOIN produto ON categoria.Id = produto.Id;
 
 -- 6. Selecione todos os produtos, mesmo aqueles que não foram pedidos:
 
-
+-- Não desenvolvi a solução.
 
 ############### DQL com joins e demais filtros
 -- 1. Selecione o nome da categoria e o número de produtos nessa categoria, apenas para categorias com mais de 5 produtos:
 
+-- Não desenvolvi a solução.
 
 -- 2. Selecione o nome do cliente e o total de pedidos feitos por cada cliente:
 SELECT cliente.nome, pedido.Id AS TotalPedidos
@@ -209,6 +210,7 @@ JOIN pedido ON Produto.Id = pedido.Id;
 
 -- 5. Selecione o nome do cliente, o número total de pedidos feitos por esse cliente e a média de produtos por pedido, apenas para clientes que tenham feito mais de 3 pedidos:
 
+-- Não desenvolvi a solução.
 
 ##### Crie uma View qualquer para qualquer um dos joins desenvolvidos
 CREATE VIEW VIEWATIVIDADE AS
